@@ -4,111 +4,303 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopystreet Campus | UZ Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Poppins', 'sans-serif'],
+          display: ['Montserrat', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            dark: '#1a3e6f',
+            bites: '#f26419',
+            essentials: '#28a745',
+            printing: '#6c63ff',
+            laundry: '#1a9fff',
+            hub: '#ff69b4',
+          }
+        }
+      }
+    }
+  }
+</script>
 <style>
-body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#f5f5f5;
+:root {
+  --ease-premium: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Header */
-.header {
-  text-align:center;
-  padding:30px 20px;
-  background:#1a3e6f;
-  color:#fff;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f8f9fa;
+  color: #1a1a1a;
+  overflow-x: hidden;
 }
-.header h1 { font-family:'Montserrat',sans-serif; font-size:2.5rem; margin:0; }
-.header p { font-size:1.2rem; margin-top:8px; }
+
+/* Premium Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: 
+    radial-gradient(at 0% 0%, rgba(26, 62, 111, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(26, 62, 111, 0.03) 0px, transparent 50%);
+  z-index: -1;
+}
+
+/* Header Upgrade */
+.header {
+  text-align: center;
+  padding: 80px 20px;
+  background: #1a3e6f;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  animation: pulse 10s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.3; }
+  to { transform: scale(1.1); opacity: 0.5; }
+}
+
+.header h1 { 
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 3.5rem; 
+  margin: 0; 
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.header p { 
+  font-size: 1.25rem; 
+  margin-top: 12px; 
+  opacity: 0.8;
+  font-weight: 400;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Status Pill */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: rgba(255,255,255,0.9);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
 
 /* Cards Grid */
 .cards-container {
-  display:flex;
-  flex-direction:column;
-  gap:30px;
-  padding:20px;
-  max-width:1200px;
-  margin:auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
-/* Individual Card */
+/* Individual Card Upgrade */
 .store-card {
-  position:relative;
-  overflow:hidden;
-  border-radius:15px;
-  height:220px; /* Fixed height for 16:9 style, responsive width */
-  display:flex;
-  align-items:flex-end;
-  box-shadow:0 6px 20px rgba(0,0,0,0.2);
-  cursor:pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  height: 280px;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.7s var(--ease-premium), box-shadow 0.7s var(--ease-premium);
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Autoslide Images */
+.store-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);
+}
+
+/* Autoslide Images with Zoom */
 .card-images {
-  position:absolute;
-  top:0; left:0;
-  width:100%;
-  height:100%;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
+
 .card-images img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  top:0; left:0;
-  transition:opacity 1s ease-in-out;
-  opacity:0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+  transition: opacity 1.5s ease-in-out, transform 10s ease-in-out;
+  opacity: 0;
+  transform: scale(1.1);
 }
-.card-images img.active { opacity:1; }
 
-/* Overlay & Info */
+.card-images img.active { 
+  opacity: 1; 
+  transform: scale(1);
+}
+
+/* Card Overlay - Glassmorphism */
 .card-info {
-  position:relative;
-  z-index:2;
-  background:rgba(0,0,0,0.35);
-  color:#fff;
-  width:100%;
-  padding:15px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-sizing:border-box;
-}
-.card-info h2 { margin:0; font-size:1.3rem; font-weight:700; }
-.card-info a {
-  padding:10px 15px;
-  border-radius:10px;
-  font-weight:700;
-  text-decoration:none;
-  color:#fff;
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  width: 100%;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.5s var(--ease-premium);
 }
 
-/* Store Specific Colors */
-#card-bites a { background:#f26419; } /* Campus Bites */
-#card-essentials a { background:#28a745; } /* Campus Essentials */
-#card-printing a { background:#6c63ff; } /* Campus Print */
-#card-laundry a { background:#1a9fff; } /* Laundry Express */
-#card-studentshub a { background:#ff69b4; } /* Student Hub */
+.store-card:hover .card-info {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.card-info h2 { 
+  margin: 0; 
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.75rem; 
+  font-weight: 700; 
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.card-info h2::after {
+  content: "LIVE MODULE";
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+  margin-top: 4px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Portal Entry Button */
+.card-info a {
+  padding: 14px 28px;
+  border-radius: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.5s var(--ease-premium);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-info a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  filter: brightness(1.1);
+}
+
+.card-info a:active {
+  transform: scale(0.95);
+}
+
+/* Store Specific Colors - Softened Gradients */
+#card-bites a { background: linear-gradient(135deg, #f26419, #e85d04); }
+#card-essentials a { background: linear-gradient(135deg, #28a745, #1e7e34); }
+#card-printing a { background: linear-gradient(135deg, #6c63ff, #5a52d5); }
+#card-laundry a { background: linear-gradient(135deg, #1a9fff, #0084e6); }
+#card-studentshub a { background: linear-gradient(135deg, #ff69b4, #e05697); }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 60px 20px;
+  font-weight: 600;
+  color: #1a3e6f;
+  background: white;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+footer span {
+  color: #3b82f6;
+}
 
 /* Responsive */
-@media(max-width:768px){ .store-card { height:180px; } }
-@media(max-width:480px){ .store-card { height:160px; } }
+@media(max-width:768px){ 
+  .store-card { height: 220px; } 
+  .header h1 { font-size: 2.5rem; }
+  .card-info { padding: 20px; }
+  .card-info h2 { font-size: 1.4rem; }
+}
+@media(max-width:480px){ 
+  .store-card { height: 180px; } 
+  .card-info a { padding: 10px 16px; font-size: 0.9rem; }
+}
 </style>
 </head>
 <body>
 
 <div class="header">
+  <div class="status-pill">
+    <span class="status-dot"></span>
+    System Online • UZ Hub
+  </div>
   <h1>Shopystreet Campus</h1>
-  <p>Your UZ campus hub for food, essentials & services</p>
+  <p>Your premium digital campus operating system for food, essentials & professional services.</p>
 </div>
 
 <div class="cards-container">
   <!-- Campus Bites -->
   <div class="store-card" id="card-bites">
     <div class="card-images">
-      <img src="campusbites1.jpg" class="active">
-      <img src="campusbites2.jpg">
+      <img src="https://picsum.photos/seed/food1/1200/600" class="active">
+      <img src="https://picsum.photos/seed/food2/1200/600">
     </div>
     <div class="card-info">
       <h2>Campus Bites</h2>
@@ -119,8 +311,8 @@ body {
   <!-- Campus Essentials -->
   <div class="store-card" id="card-essentials">
     <div class="card-images">
-      <img src="campusessentials1.jpg" class="active">
-      <img src="campusessentials2.jpg">
+      <img src="https://picsum.photos/seed/shop1/1200/600" class="active">
+      <img src="https://picsum.photos/seed/shop2/1200/600">
     </div>
     <div class="card-info">
       <h2>Campus Essentials</h2>
@@ -131,8 +323,8 @@ body {
   <!-- Campus Printing -->
   <div class="store-card" id="card-printing">
     <div class="card-images">
-      <img src="campusprinting1.jpg" class="active">
-      <img src="campusprinting2.jpg">
+      <img src="https://picsum.photos/seed/print1/1200/600" class="active">
+      <img src="https://picsum.photos/seed/print2/1200/600">
     </div>
     <div class="card-info">
       <h2>Campus Print Hub</h2>
@@ -143,8 +335,8 @@ body {
   <!-- Laundry Express -->
   <div class="store-card" id="card-laundry">
     <div class="card-images">
-      <img src="laundryexpress1.jpg" class="active">
-      <img src="laundryexpress2.jpg">
+      <img src="https://picsum.photos/seed/laundry1/1200/600" class="active">
+      <img src="https://picsum.photos/seed/laundry2/1200/600">
     </div>
     <div class="card-info">
       <h2>Laundry Express</h2>
@@ -155,8 +347,8 @@ body {
   <!-- Student Hub -->
   <div class="store-card" id="card-studentshub">
     <div class="card-images">
-      <img src="campusstudentshub1.jpg" class="active">
-      <img src="campusstudentshub2.jpg">
+      <img src="https://picsum.photos/seed/hub1/1200/600" class="active">
+      <img src="https://picsum.photos/seed/hub2/1200/600">
     </div>
     <div class="card-info">
       <h2>Student Hub Store</h2>
@@ -165,21 +357,48 @@ body {
   </div>
 </div>
 
-<footer style="text-align:center; padding:20px; font-weight:600; color:#1a3e6f;">Powered by Zalackron Smart Operating System</footer>
+<footer>Powered by <span>Zalackron Smart Operating System</span></footer>
 
 <script>
-// Autoslide for cards
-const cards = document.querySelectorAll('.card-images');
-cards.forEach(card => {
-  const imgs = card.querySelectorAll('img');
+// Autoslide for cards with enhanced transitions
+const cardContainers = document.querySelectorAll('.card-images');
+cardContainers.forEach(container => {
+  const imgs = container.querySelectorAll('img');
   let index = 0;
-  setInterval(() => {
-    imgs[index].classList.remove('active');
-    index = (index + 1) % imgs.length;
-    imgs[index].classList.add('active');
-  }, 3000);
+  
+  // Initial random delay to make the dashboard feel "alive" and asynchronous
+  const initialDelay = Math.random() * 2000;
+  
+  setTimeout(() => {
+    setInterval(() => {
+      imgs[index].classList.remove('active');
+      index = (index + 1) % imgs.length;
+      imgs[index].classList.add('active');
+    }, 5000); // Slower, calmer transition
+  }, initialDelay);
+});
+
+// Subtle parallax/tilt effect on mouse move for premium feel
+document.querySelectorAll('.store-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    
+    card.style.transform = `perspective(1000px) translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = `perspective(1000px) translateY(0) rotateX(0) rotateY(0)`;
+  });
 });
 </script>
 
 </body>
-</html>
+  </html>
